@@ -19,7 +19,7 @@ public class GroupProperty {
     @Setter
     private String name;
 
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "groupProperty", fetch = FetchType.LAZY)
     @Getter
     @Setter
     private List<Property> properties;

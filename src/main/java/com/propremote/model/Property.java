@@ -1,9 +1,9 @@
 package com.propremote.model;
 
-import javax.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
 public class Property {
@@ -14,9 +14,17 @@ public class Property {
     @Setter
 	private Long id;
 
-    @ManyToOne
-    @JoinColumn(nullable = false, name="group_id")
     @Getter
     @Setter
-	private GroupProperty group;
+	private String key;
+
+    @Getter
+    @Setter
+	private String value;
+
+    @ManyToOne
+    @JoinColumn(name="group_id")
+    @Getter
+    @Setter
+	private GroupProperty groupProperty;
 }
