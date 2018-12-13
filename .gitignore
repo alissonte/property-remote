@@ -1,3 +1,14 @@
+bin/
+node_modules/
+build/
+.classpath
+.project
+mvnw
+mvnw.cmd
+.maven/
+.settings/
+*.jasper
+
 # Compiled class file
 *.class
 
@@ -21,3 +32,4 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/target/
