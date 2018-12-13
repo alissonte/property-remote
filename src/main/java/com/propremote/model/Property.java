@@ -1,8 +1,6 @@
 package com.propremote.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +9,14 @@ import lombok.Setter;
 public class Property {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
-	@Setter
+    @Setter
 	private Long id;
+
+    @ManyToOne
+    @JoinColumn(nullable = false, name="group_id")
+    @Getter
+    @Setter
+	private GroupProperty group;
 }
