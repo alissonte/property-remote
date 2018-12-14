@@ -21,6 +21,11 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public Property getProperty(Long id) {
+
+        if(id == null) {
+            throw new RuntimeException("ID cannot be null");
+        }
+
         try {
             return propertyRepository.findById(id).get();
         } catch (NoSuchElementException e) {
@@ -44,6 +49,10 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public void removeProperty(Long id) {
+
+        if(id == null) {
+            throw new RuntimeException("ID cannot be null");
+        }
 
         //if no exception is thrown, we know that the specific property exists
         getProperty(id);
