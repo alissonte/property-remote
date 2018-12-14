@@ -18,7 +18,7 @@ public class PropertyController {
 
     @RequestMapping(value = "/property", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> addProperty(@RequestBody Property property) {
-        propertyService.addProperty(property);
+        propertyService.save(property);
         return new ResponseEntity<>("Property has been created successfully", HttpStatus.CREATED);
     }
 
@@ -27,7 +27,7 @@ public class PropertyController {
 
         //FIXME: Exceptions should be handled by Spring
         try {
-            Property property = propertyService.getProperty(id);
+            Property property = propertyService.findOne(id);
             return new ResponseEntity(property, HttpStatus.OK);
         } catch (NoSuchPropertyException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -39,7 +39,7 @@ public class PropertyController {
     @RequestMapping(value = "/property", method = RequestMethod.PUT)
     public ResponseEntity updateProperty(@RequestBody Property property) {
         try {
-            propertyService.updateProperty(property);
+            propertyService.save(property);
             return new ResponseEntity("Property has been updated successfully!", HttpStatus.OK);
         } catch (NoSuchPropertyException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -53,7 +53,7 @@ public class PropertyController {
 
         //FIXME: Exceptions should be handled by Spring
         try {
-            propertyService.removeProperty(id);
+            propertyService.delete(id);
             return new ResponseEntity("Property has been deleted successfully!", HttpStatus.OK);
         } catch (NoSuchPropertyException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);

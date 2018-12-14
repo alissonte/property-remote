@@ -2,11 +2,12 @@ package com.propremote.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.*;
 
 @Entity
-public class Property {
+public class Property extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,6 +8,7 @@ mvnw.cmd
 .maven/
 .settings/
 *.jasper
+*.idea
 
 # Compiled class file
 *.class

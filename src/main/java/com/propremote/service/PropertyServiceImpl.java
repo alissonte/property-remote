@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 
 @Service
-public class PropertyServiceImpl implements PropertyService {
+public class PropertyServiceImpl extends GenericServiceImpl<Property> implements PropertyService {
 
-    @Autowired
+    /*@Autowired
     PropertyRepository propertyRepository;
 
     @Override
@@ -58,5 +58,5 @@ public class PropertyServiceImpl implements PropertyService {
         getProperty(id);
 
         propertyRepository.deleteById(id);
-    }
+    }*/
 }
