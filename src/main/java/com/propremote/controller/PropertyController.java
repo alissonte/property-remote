@@ -1,5 +1,6 @@
 package com.propremote.controller;
 
+import com.propremote.exception.NoSuchPropertyException;
 import com.propremote.model.Property;
 import com.propremote.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +19,40 @@ public class PropertyController {
     @RequestMapping(value = "/property", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> addProperty(@RequestBody Property property) {
         propertyService.addProperty(property);
-        return new ResponseEntity<>("OK", HttpStatus.CREATED);
+        return new ResponseEntity<>("Property has been created successfully", HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/property/{id:[\\d]+}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity getProperty(@PathVariable Long id) {
-        Property prop = propertyService.getProperty(id);
-        return new ResponseEntity(prop, HttpStatus.OK);
+
+        //FIXME: Exceptions should be handled by Spring
+        try {
+            Property property = propertyService.getProperty(id);
+            return new ResponseEntity(property, HttpStatus.OK);
+        } catch (NoSuchPropertyException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/property/{id:[\\d]+}", method = RequestMethod.PUT)
-    public ResponseEntity updateShow(@PathVariable Long id) {
-        return new ResponseEntity("Success!", HttpStatus.OK);
-        //TODO: implement property update
+    public ResponseEntity updateShow(@RequestBody Property property) {
+        try {
+            propertyService.updateProperty(property);
+            return new ResponseEntity("Property has been updated successfully!", HttpStatus.OK);
+        } catch (NoSuchPropertyException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/property/{id:[\\d]+}", method = RequestMethod.DELETE)
     public ResponseEntity removeShow(@PathVariable Long id) {
-        return new ResponseEntity("Success!", HttpStatus.OK);
-        //TODO: implement property removal
+
+        //FIXME: Exceptions should be handled by Spring
+        try {
+            propertyService.removeProperty(id);
+            return new ResponseEntity("Property has been deleted successfully!", HttpStatus.OK);
+        } catch (NoSuchPropertyException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 }
