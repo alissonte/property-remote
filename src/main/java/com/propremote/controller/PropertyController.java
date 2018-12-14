@@ -31,21 +31,25 @@ public class PropertyController {
             return new ResponseEntity(property, HttpStatus.OK);
         } catch (NoSuchPropertyException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (RuntimeException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
     @RequestMapping(value = "/property/{id:[\\d]+}", method = RequestMethod.PUT)
-    public ResponseEntity updateShow(@RequestBody Property property) {
+    public ResponseEntity updateProperty(@RequestBody Property property) {
         try {
             propertyService.updateProperty(property);
             return new ResponseEntity("Property has been updated successfully!", HttpStatus.OK);
         } catch (NoSuchPropertyException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (RuntimeException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
     @RequestMapping(value = "/property/{id:[\\d]+}", method = RequestMethod.DELETE)
-    public ResponseEntity removeShow(@PathVariable Long id) {
+    public ResponseEntity removeProperty(@PathVariable Long id) {
 
         //FIXME: Exceptions should be handled by Spring
         try {
@@ -53,6 +57,8 @@ public class PropertyController {
             return new ResponseEntity("Property has been deleted successfully!", HttpStatus.OK);
         } catch (NoSuchPropertyException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (RuntimeException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
 }
