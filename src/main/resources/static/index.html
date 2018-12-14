@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CM</title>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<style type="text/css">
+div.circle {
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border: 1px solid;
+	height: 30px;
+}
+</style>
+
+<script type="text/javascript">
+	
+	function refresh(){
+		$.get( "/api/v1/property/1", function( data ) {
+			$( ".row" ).html("");
+			var qtd = parseInt(data.value)	
+			var html= "";
+			
+			for(var i = 0; i < qtd; i++){
+				html += "<div class='col-2 circle'/>"
+			}
+			
+			  $( "#circle-area" ).html(html);
+			  
+			  $.get( "/api/v1/property/2", function( data ) {
+				  $( ".circle" ).css('background-color',data.value);	  
+			  });
+			});
+	}
+	
+	setInterval(refresh, 3000);
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+
+  <div id="circle-area" class="row">
+  	
+  </div>
+</div>
+
+</body>
+</html>
