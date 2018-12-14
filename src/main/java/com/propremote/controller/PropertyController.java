@@ -36,7 +36,7 @@ public class PropertyController {
         }
     }
 
-    @RequestMapping(value = "/property/{id:[\\d]+}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/property", method = RequestMethod.PUT)
     public ResponseEntity updateProperty(@RequestBody Property property) {
         try {
             propertyService.updateProperty(property);
