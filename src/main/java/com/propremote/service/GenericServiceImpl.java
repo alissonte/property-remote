@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class GenericServiceImpl<TEntity extends AbstractEntity> implements GenericService<TEntity> {
+public class GenericServiceImpl<TEntity extends Serializable> implements GenericService<TEntity> {
 
 	@Autowired
 	protected GenericRepository<TEntity> repository;

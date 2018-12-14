@@ -2,13 +2,13 @@ package com.propremote.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class GroupProperty extends AbstractEntity {
+public class GroupProperty implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +24,6 @@ public class GroupProperty extends AbstractEntity {
     @Getter
     @Setter
     private List<Property> properties;
+
+
 }

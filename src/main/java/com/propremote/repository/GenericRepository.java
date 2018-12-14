@@ -1,10 +1,11 @@
 package com.propremote.repository;
 
-import org.dom4j.tree.AbstractEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
+import java.io.Serializable;
+
 @NoRepositoryBean
-public interface GenericRepository<T extends AbstractEntity> extends JpaRepository<T, Long>, JpaSpecificationExecutor<T> {
+public interface GenericRepository<T extends Serializable> extends JpaRepository<T, Long>, JpaSpecificationExecutor<T> {
 }
