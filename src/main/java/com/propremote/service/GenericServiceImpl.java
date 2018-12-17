@@ -1,7 +1,6 @@
 package com.propremote.service;
 
 import com.propremote.repository.GenericRepository;
-import org.dom4j.tree.AbstractEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +29,7 @@ public class GenericServiceImpl<TEntity extends Serializable> implements Generic
 
 	@Override
 	public TEntity findOne(Long id) {
-		return repository.getOne(id);
+        return repository.findById(id).get();
 	}
 
 	@Override

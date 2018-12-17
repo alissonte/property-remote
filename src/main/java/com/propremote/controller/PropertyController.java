@@ -9,6 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
 @RestController
 @RequestMapping("/api/v1")
 public class PropertyController {
@@ -29,8 +32,8 @@ public class PropertyController {
         try {
             Property property = propertyService.findOne(id);
             return new ResponseEntity(property, HttpStatus.OK);
-        } catch (NoSuchPropertyException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity("No property found for ID " + id + ".", HttpStatus.NOT_FOUND);
         } catch (RuntimeException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
@@ -60,5 +63,10 @@ public class PropertyController {
         } catch (RuntimeException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
+    }
+
+    @RequestMapping(value = "/property/all", method=RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Property> findAll() {
+        return propertyService.findAll();
     }
 }

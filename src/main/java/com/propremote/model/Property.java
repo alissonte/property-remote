@@ -1,5 +1,6 @@
 package com.propremote.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,7 @@ public class Property implements Serializable{
     @Setter
 	private String value;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="group_id")
     @Getter
