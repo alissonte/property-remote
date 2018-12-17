@@ -18,23 +18,33 @@ div.circle {
 
 <script type="text/javascript">
 	
-	function refresh(){
-		$.get( "/api/v1/property/1", function( data ) {
-			$( ".row" ).html("");
-			var qtd = parseInt(data.value)	
-			var html= "";
-			
-			for(var i = 0; i < qtd; i++){
-				html += "<div class='col-2 circle'/>"
-			}
-			
-			  $( "#circle-area" ).html(html);
+	function refresh(){		
+		
+		  $.get( "/api/v1/property/2", function( data ) {
 			  
-			  $.get( "/api/v1/property/2", function( data ) {
-				  $( ".circle" ).css('background-color',data.value);	  
-			  });
-			});
+			  var color = data.value;
+			  
+			  $.get( "/api/v1/property/1", function( data ) {
+					$( ".row" ).html("");
+					var qtd = parseInt(data.value);					
+					
+					for(var i = 0; i < qtd; i++){						
+					  $("#circle-area ").append("<canvas width='300' height='150' class='circle'/>");
+					  createCircle($("#circle-area .circle:last").get(0), color);					  
+					}				
+					
+				});		  
+		  });
 	}
+	
+	function createCircle(element, color) {        
+        var ctx = element.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.stroke();
+    }
 	
 	setInterval(refresh, 3000);
 </script>
