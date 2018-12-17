@@ -20,16 +20,16 @@ div.circle {
 	
 	function refresh(){		
 		
-		  $.get( "/api/v1/property/2", function( data ) {
+		  $.get( "/api/v1/property/key/COLOR ", function( data ) {
 			  
 			  var color = data.value;
 			  
-			  $.get( "/api/v1/property/1", function( data ) {
+			  $.get( "/api/v1/property/key/QTD ", function( data ) {
 					$( ".row" ).html("");
 					var qtd = parseInt(data.value);					
 					
 					for(var i = 0; i < qtd; i++){						
-					  $("#circle-area ").append("<canvas width='300' height='150' class='circle'/>");
+					  $("#circle-area ").append("<canvas width='150' height='150' class='circle'/>");
 					  createCircle($("#circle-area .circle:last").get(0), color);					  
 					}				
 					
