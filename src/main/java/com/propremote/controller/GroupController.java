@@ -2,6 +2,7 @@ package com.propremote.controller;
 
 import com.propremote.exception.NoSuchGroupException;
 import com.propremote.model.GroupProperty;
+import com.propremote.model.Property;
 import com.propremote.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -31,8 +33,8 @@ public class GroupController {
         try {
             GroupProperty groupProperty = groupService.findOne(id);
             return new ResponseEntity(groupProperty, HttpStatus.OK);
-        } catch (NoSuchGroupException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity("No group found for ID " + id + ".", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -62,8 +64,18 @@ public class GroupController {
         }
     }
 
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping(value = "/group/all", method=RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<GroupProperty> findAll() {
         return groupService.findAll();
+    }
+
+    @RequestMapping(value = "/group/{id:[\\d]+}/addProperties", method=RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity addPropertiesToGroup(@PathVariable Long id, @RequestBody List<Property> propertiesIDs) {
+        try {
+            groupService.includeProperties(id, propertiesIDs);
+            return new ResponseEntity("Properties have been included successfully.", HttpStatus.OK);
+        } catch (NoSuchGroupException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.OK);
+        }
     }
 }
