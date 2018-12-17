@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface PropertyRepository extends GenericRepository<Property> {
     List<Property> findByIdIn(Collection<Long> ids);
+    Property findByKey(String key);
 }

@@ -10,4 +10,12 @@ import java.util.NoSuchElementException;
 
 @Service
 public class PropertyServiceImpl extends GenericServiceImpl<Property> implements PropertyService {
+
+    @Autowired
+    protected PropertyRepository propertyRepository;
+
+    @Override
+    public Property findByKey(String key) {
+        return propertyRepository.findByKey(key);
+    }
 }

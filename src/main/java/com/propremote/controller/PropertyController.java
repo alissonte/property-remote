@@ -69,4 +69,10 @@ public class PropertyController {
     public List<Property> findAll() {
         return propertyService.findAll();
     }
+
+    @RequestMapping(value = "/property/key/{key}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Property findByKey(@PathVariable String key) {
+        Property property = propertyService.findByKey(key);
+        return property;
+    }
 }
